@@ -1,5 +1,5 @@
 const createTypes = (namespace, actionTypes) => (
-	actionTypes.reduce((result, actionType) => {
+  actionTypes.reduce((result, actionType) => {
     result[actionType] = `${namespace}/${actionType}`;
     return result;
   }, {})
@@ -9,8 +9,8 @@ const composeReducer = (namespace, mapping, initialState, fallback = state => st
   const namespacedMapping = {};
   
   Object.keys(mapping).map((key) => {
-  	const newkey = `${namespace}/${key}`;
-  	namespacedMapping[newkey] = mapping[key];
+    const newkey = `${namespace}/${key}`;
+    namespacedMapping[newkey] = mapping[key];
   });
   
   return (state = initialState, action ) => {
@@ -20,6 +20,6 @@ const composeReducer = (namespace, mapping, initialState, fallback = state => st
 };
 
 module.exports = {
-	composeReducer,
-	createTypes
+  composeReducer,
+  createTypes
 };
