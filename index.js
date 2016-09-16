@@ -1,5 +1,5 @@
-const createTypes = require('./createTypes');
-const composeReducer = require('./composeReducer');
+const createTypes = require('./src/createTypes');
+const composeReducer = require('./src/composeReducer');
 
 module.exports = {
   composeReducer,
