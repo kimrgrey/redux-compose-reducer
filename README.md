@@ -53,3 +53,11 @@ export default composeReducer('app', {
   closeSideBar
 }, initialState);
 ```
+
+## Tests
+
+If you want to run tests just execute:
+
+```
+npm test
+```
