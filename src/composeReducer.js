@@ -1,4 +1,6 @@
-const composeReducer = (namespace, mapping, initialState, fallback = state => state) => {
+const defaultFallback = state => state;
+
+const composeReducer = (namespace, mapping, initialState, fallback = defaultFallback) => {
   const namespacedMapping = {};
 
   Object.keys(mapping).map((key) => {
