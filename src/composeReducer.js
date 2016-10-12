@@ -1,17 +1,24 @@
-const defaultFallback = state => state;
+function defaultFallback(state) {
+  return state;
+}
 
-const composeReducer = (namespace, mapping, initialState, fallback = defaultFallback) => {
+function composeReducer(namespace, mapping, initialState, fallback) {
   const namespacedMapping = {};
 
-  Object.keys(mapping).map((key) => {
+  Object.keys(mapping).map(function(key) {
     const newkey = `${namespace}/${key}`;
     namespacedMapping[newkey] = mapping[key];
   });
 
-  return (state = initialState, action ) => {
+  return function(state, action) {
     const handler = namespacedMapping[action.type];
-    return handler ? handler(state, action) : fallback(state, action);
+    
+    return (
+      handler 
+        ? handler(state || initialState, action) 
+        : (fallback || defaultFallback)(state || initialState, action)
+    );
   }
-};
+}
 
 module.exports = composeReducer;
