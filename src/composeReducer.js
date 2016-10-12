@@ -6,7 +6,7 @@ function composeReducer(namespace, mapping, initialState, fallback) {
   const namespacedMapping = {};
 
   Object.keys(mapping).map(function(key) {
-    const newkey = `${namespace}/${key}`;
+    const newkey = [namespace, key].join('/');
     namespacedMapping[newkey] = mapping[key];
   });
 
