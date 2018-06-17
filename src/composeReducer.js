@@ -3,16 +3,16 @@ function defaultFallback(state) {
 }
 
 function composeReducer(namespace, mapping, initialState, fallback) {
-  const namespacedMapping = {};
+  var namespacedMapping = {};
 
   Object.keys(mapping).map(function(key) {
-    const newkey = [namespace, key].join('/');
+    var newkey = [namespace, key].join('/');
     namespacedMapping[newkey] = mapping[key];
   });
 
   return function(state, action) {
-    const handler = namespacedMapping[action.type];
-    
+    var handler = namespacedMapping[action.type];
+
     return (
       handler 
         ? handler(state || initialState, action) 
