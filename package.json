@@ -1,6 +1,6 @@
 {
   "name": "redux-compose-reducer",
-  "version": "1.1.3",
+  "version": "1.2.0",
   "description": "Reducer's composer for Redux",
   "main": "index.js",
   "scripts": {
