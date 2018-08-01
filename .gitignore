@@ -1,3 +1,10 @@
-node_modules/
+node_modules
+coverage
+es
+lib
+dist
+*.log
+package-lock.json
+yarn.lock
 .DS_Store
-/.idea
+.idea

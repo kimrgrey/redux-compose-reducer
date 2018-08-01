@@ -1,0 +1,14 @@
+{
+  "parserOptions": {
+    "sourceType": "module"
+  },
+  "env": {
+    "jest": true
+  },
+  "plugins": [
+    "prettier"
+  ],
+  "rules": {
+    "prettier/prettier": "error"
+  }
+}

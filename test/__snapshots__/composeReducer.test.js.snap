@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`composeReducer \`types\` attribute validates reducers 1`] = `"There is no 'action3' action type."`;
