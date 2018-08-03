@@ -3,7 +3,7 @@
   "version": "1.2.0",
   "description": "Reducer's composer for Redux",
   "main": "lib/index.js",
-  "unpkg": "dist/redux.js",
+  "unpkg": "dist/index.js",
   "module": "es/index.js",
   "jsnext:main": "es/index.js",
   "sideEffects": false,
