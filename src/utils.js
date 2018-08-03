@@ -17,7 +17,6 @@ const TYPES_PROXY_HANDLER = {
       return target[code]
     }
 
-    const keys = Object.keys(target).join(', ')
     throw createCapturedError(`Key '${code}' does not exist.`, this.get)
   },
 }

@@ -3,12 +3,18 @@
     "sourceType": "module"
   },
   "env": {
+    "node": true,
     "jest": true
   },
+  "extends": [
+    "problems"
+  ],
   "plugins": [
     "prettier"
   ],
   "rules": {
-    "prettier/prettier": "error"
+    "prettier/prettier": "error",
+    "no-use-before-define": 0,
+    "no-console": ["error", { "allow": ["warn"] }]
   }
 }

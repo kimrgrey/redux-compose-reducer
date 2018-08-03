@@ -2,10 +2,6 @@ import createTypes, { ARGUMENT_ERROR } from '../src/createTypes'
 
 describe('createTypes', () => {
   it('produces correct action types', () => {
-    const expected = {
-      action1: `test/action1`,
-      action2: `test/action2`,
-    }
     const actual = createTypes('test', ['action1', 'action2'])
     expect(Object.keys(actual)).toEqual(['action1', 'action2'])
     expect(Object.values(actual)).toEqual(['test/action1', 'test/action2'])
@@ -24,9 +20,6 @@ describe('createTypes', () => {
       })
 
       it('does not produce error', () => {
-        const Proxy = global.Proxy
-        global.Proxy = undefined
-
         const actual = createTypes('test', ['action1', 'action2'])
         expect(() => actual.missingType).not.toThrowError()
       })

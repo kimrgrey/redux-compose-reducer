@@ -10,7 +10,7 @@
   "scripts": {
     "clean": "rimraf lib dist es coverage",
     "format": "prettier --write \"**/*.{js,md}\"",
-    "format:check": "prettier --list-different \"{src,test}/**/*.js\"",
+    "lint": "eslint .",
     "test": "jest",
     "build:commonjs": "cross-env NODE_ENV=cjs rollup -c -o lib/index.js",
     "build:es": "cross-env BABEL_ENV=es NODE_ENV=es rollup -c -o es/index.js",
@@ -51,6 +51,7 @@
     "babel-preset-env": "^1.7.0",
     "cross-env": "^5.2.0",
     "eslint": "^5.2.0",
+    "eslint-config-problems": "^1.1.0",
     "eslint-plugin-prettier": "^2.6.2",
     "jest": "^23.4.2",
     "npm-run-all": "^4.1.3",
