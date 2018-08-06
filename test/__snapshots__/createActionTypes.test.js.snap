@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`createTypes proxy access to action that does not exists produces error 1`] = `"Key 'missingType' does not exist."`;
+
+exports[`createTypes proxy access to action that does not exists works in enviroments without captureStackTrace 1`] = `"Key 'missingType' does not exist."`;
