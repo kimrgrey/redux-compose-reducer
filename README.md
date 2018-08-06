@@ -1,5 +1,7 @@
 # Redux Compose Reducer
 
+[![Build Status](https://travis-ci.com/kimrgrey/redux-compose-reducer.svg?branch=master)](https://travis-ci.com/kimrgrey/redux-compose-reducer)
+
 Reducer's composer for Redux. This library simplifies workflow for building namespaced actions and reducers for them in Redux.
 
 ## Installation
