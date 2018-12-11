@@ -1,4 +1,9 @@
-import { namespacedActionType, isObject, createCapturedError } from './utils'
+import {
+  namespacedActionType,
+  isObject,
+  isFunction,
+  createCapturedError,
+} from './utils'
 
 const composeReducer = (...args) => {
   const {
@@ -15,7 +20,7 @@ const composeReducer = (...args) => {
       (typeof namespace !== 'string' || namespace.length === 0)) ||
     !isObject(initialState) ||
     !isObject(reducers) ||
-    (globalReducer !== undefined && typeof globalReducer !== 'function')
+    (globalReducer !== undefined && !isFunction(globalReducer))
   )
     throw createError(ARGUMENT_ERROR)
 
@@ -49,7 +54,7 @@ const createMapFromTypes = (types, reducers) => {
   const result = {}
   Object.keys(reducers).forEach(key => {
     if (!(key in types)) throw createError(`There is no '${key}' action type.`)
-    result[types[key]] = reducers[key]
+    result[types[key]] = normalizeReducer(reducers[key])
   })
   return result
 }
@@ -57,10 +62,15 @@ const createMapFromTypes = (types, reducers) => {
 const createMapFromNamespace = (namespace, reducers) => {
   const result = {}
   Object.keys(reducers).forEach(type => {
-    result[namespacedActionType(namespace, type)] = reducers[type]
+    result[namespacedActionType(namespace, type)] = normalizeReducer(
+      reducers[type]
+    )
   })
   return result
 }
+
+const normalizeReducer = reducer =>
+  isFunction(reducer) ? reducer : state => Object.assign({}, state, reducer)
 
 export const ARGUMENT_ERROR = `As argument expected object of shape : {
   namespace: 'non empty string',

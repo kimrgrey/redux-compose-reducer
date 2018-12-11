@@ -42,10 +42,9 @@ const openSideBar = state => ({
   open: true,
 })
 
-const closeSideBar = state => ({
-  ...state,
-  open: false,
-})
+// if your reducer doesn't require state and action
+// you can declare it as object that describes changes
+const closeSideBar = { open: false }
 
 export default composeReducer({
   types: TYPES,

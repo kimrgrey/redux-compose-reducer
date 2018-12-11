@@ -5,6 +5,8 @@ export const namespacedActionType = (namespace, type) =>
 
 export const isObject = o => o instanceof Object && !Array.isArray(o)
 
+export const isFunction = o => typeof o === 'function'
+
 export const createCapturedError = (message, cst) => {
   const error = new Error(message)
   if (cst && Error.captureStackTrace) Error.captureStackTrace(error, cst)
