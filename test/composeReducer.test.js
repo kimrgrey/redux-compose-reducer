@@ -80,6 +80,31 @@ describe('composeReducer', () => {
     })
   })
 
+  describe('`reducers` shortcuts', () => {
+    it('produces correct state depends on action type', () => {
+      const reducer = composeReducer({
+        namespace: 'test',
+        initialState: { action: false, action2: false },
+        reducers: {
+          action: { action: true },
+          action2: { action2: true },
+        },
+      })
+
+      let actual = reducer(undefined, { type: 'test/action' })
+      expect(actual).toEqual({
+        action: true,
+        action2: false,
+      })
+
+      actual = reducer(undefined, { type: 'test/action2' })
+      expect(actual).toEqual({
+        action: false,
+        action2: true,
+      })
+    })
+  })
+
   describe('`globalReducer` attribute', () => {
     it('allows to reduce global actions', () => {
       const GLOBAL_ACTION_TYPE = 'GLOBAL/ACTION'

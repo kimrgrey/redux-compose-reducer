@@ -3,4 +3,5 @@ const modules = BABEL_ENV === 'cjs' || NODE_ENV === 'test' ? 'commonjs' : false
 
 module.exports = {
   presets: [['@babel/preset-env', { loose: true, modules }]],
+  plugins: ['@babel/plugin-transform-object-assign']
 }
