@@ -1,5 +1,7 @@
 const DELIMITER = '/'
 
+export const isDev = process.env.NODE_ENV !== 'production'
+
 export const namespacedActionType = (namespace, type) =>
   `${namespace}${DELIMITER}${type}`
 
@@ -23,11 +25,23 @@ const TYPES_PROXY_HANDLER = {
   },
 }
 
-export const createTypesObject = () => {
-  const useProxy =
-    process.env.NODE_ENV !== 'production' &&
-    'Proxy' in global &&
-    typeof Proxy === 'function'
+export const createTypesObject = () =>
+  isDev && 'Proxy' in global && typeof Proxy === 'function'
+    ? new Proxy({}, TYPES_PROXY_HANDLER)
+    : {}
 
-  return useProxy ? new Proxy({}, TYPES_PROXY_HANDLER) : {}
+export const checkStateShape = (next, prev, action) => {
+  const missingKeys = []
+  Object.keys(next).forEach(key => {
+    if (key in prev) return
+    missingKeys.push(key)
+  })
+
+  if (missingKeys.length > 0) {
+    console.warn(
+      `Reducer for action '${
+        action.type
+      }' produced new keys: [${missingKeys.join(',')}]`
+    )
+  }
 }

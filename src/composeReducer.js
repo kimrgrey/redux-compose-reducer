@@ -1,8 +1,10 @@
 import {
+  isDev,
   namespacedActionType,
   isObject,
   isFunction,
   createCapturedError,
+  checkStateShape,
 } from './utils'
 
 const composeReducer = (...args) => {
@@ -29,10 +31,11 @@ const composeReducer = (...args) => {
     : createMapFromNamespace(namespace, reducers)
 
   return (state = initialState, action) => {
-    state = typeToReducerMap[action.type]
-      ? typeToReducerMap[action.type](state, action)
-      : state
-    return globalReducer ? globalReducer(state, action) : state
+    const reduce = typeToReducerMap[action.type]
+    if (reduce) state = reduce(state, action)
+    if (globalReducer) state = globalReducer(state, action)
+    if (isDev) checkStateShape(state, initialState, action)
+    return state
   }
 }
 

@@ -1,7 +1,12 @@
+import * as utils from '../src/utils'
 import { composeReducer, createTypes } from '../src'
 import { ARGUMENT_ERROR } from '../src/composeReducer'
 
 describe('composeReducer', () => {
+  beforeEach(() => {
+    console.warn = jest.fn()
+  })
+
   it('produces correct state depends on action type', () => {
     const reducer = composeReducer({
       namespace: 'test',
@@ -155,17 +160,6 @@ describe('composeReducer', () => {
   })
 
   describe('depricated api', () => {
-    let warn
-
-    beforeAll(() => {
-      warn = console.warn
-      console.warn = jest.fn()
-    })
-
-    afterAll(() => {
-      console.warn = warn
-    })
-
     it('still supported', () => {
       const reducer = composeReducer(
         'test',
@@ -191,7 +185,11 @@ describe('composeReducer', () => {
       )
 
       reducer(undefined, { type: 'test/action' })
-      expect(console.warn.mock.calls.length).toBe(1)
+      const { calls } = console.warn.mock
+      expect(calls.length).toBe(1)
+      expect(calls[0][0]).toMatchInlineSnapshot(
+        `"redux-compose-reducer#composeReducer: Multiple arguments api is depricated and will be removed in future versions. Please use object argument."`
+      )
     })
   })
 
@@ -247,6 +245,42 @@ describe('composeReducer', () => {
             globalReducer: {},
           })
         ).toThrowError(ARGUMENT_ERROR)
+      })
+    })
+  })
+
+  describe('unknown keys', () => {
+    const reducer = composeReducer({
+      namespace: 'test',
+      initialState: {
+        knownAttribute: true,
+      },
+      reducers: {
+        action: state => Object.assign({}, state, { unknownAttribute: true }),
+      },
+    })
+
+    afterEach(() => {
+      utils.isDev = true
+    })
+
+    describe('development build', () => {
+      it('produces warning', () => {
+        reducer(undefined, { type: 'test/action' })
+
+        const { calls } = console.warn.mock
+        expect(calls.length).toBe(1)
+        expect(calls[0][0]).toMatchInlineSnapshot(
+          `"Reducer for action 'test/action' produced new keys: [unknownAttribute]"`
+        )
+      })
+    })
+
+    describe('production build', () => {
+      it('works silently', () => {
+        utils.isDev = false
+        reducer(undefined, { type: 'test/action' })
+        expect(console.warn.mock.calls.length).toBe(0)
       })
     })
   })
