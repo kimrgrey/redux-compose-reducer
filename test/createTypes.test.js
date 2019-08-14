@@ -7,6 +7,14 @@ describe('createTypes', () => {
     expect(Object.values(actual)).toEqual(['test/action1', 'test/action2'])
   })
 
+  describe('without namespace', () => {
+    it('produces correct action types', () => {
+      const actual = createTypes(['action1', 'action2'])
+      expect(Object.keys(actual)).toEqual(['action1', 'action2'])
+      expect(Object.values(actual)).toEqual(['action1', 'action2'])
+    })
+  })
+
   describe('proxy', () => {
     describe('enviroments without Proxy', () => {
       const proxy = global.Proxy

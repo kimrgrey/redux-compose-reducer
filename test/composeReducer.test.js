@@ -44,6 +44,30 @@ describe('composeReducer', () => {
     expect(action.mock.calls.length).toBe(0)
   })
 
+  describe('without namespace', () => {
+    it('produces correct state depends on action type', () => {
+      const reducer = composeReducer({
+        initialState: { action: false, action2: false },
+        reducers: {
+          action: state => Object.assign({}, state, { action: true }),
+          action2: state => Object.assign({}, state, { action2: true }),
+        },
+      })
+
+      let actual = reducer(undefined, { type: 'action' })
+      expect(actual).toEqual({
+        action: true,
+        action2: false,
+      })
+
+      actual = reducer(undefined, { type: 'action2' })
+      expect(actual).toEqual({
+        action: false,
+        action2: true,
+      })
+    })
+  })
+
   describe('`types` attribute', () => {
     it('produces correct state depends on action type', () => {
       const types = createTypes('test', ['action', 'action2'])

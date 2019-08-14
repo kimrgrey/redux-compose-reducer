@@ -3,7 +3,7 @@ const DELIMITER = '/'
 export const isDev = process.env.NODE_ENV !== 'production'
 
 export const namespacedActionType = (namespace, type) =>
-  `${namespace}${DELIMITER}${type}`
+  namespace === '' ? type : `${namespace}${DELIMITER}${type}`
 
 export const isObject = o => o instanceof Object && !Array.isArray(o)
 

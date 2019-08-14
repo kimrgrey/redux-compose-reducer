@@ -9,7 +9,7 @@ import {
 
 const composeReducer = (...args) => {
   const {
-    namespace,
+    namespace = '',
     types,
     initialState,
     reducers = {},
@@ -18,8 +18,7 @@ const composeReducer = (...args) => {
 
   if (
     (types !== undefined && !isObject(types)) ||
-    (types === undefined &&
-      (typeof namespace !== 'string' || namespace.length === 0)) ||
+    (types === undefined && typeof namespace !== 'string') ||
     !isObject(initialState) ||
     !isObject(reducers) ||
     (globalReducer !== undefined && !isFunction(globalReducer))
@@ -76,7 +75,7 @@ const normalizeReducer = reducer =>
   isFunction(reducer) ? reducer : state => Object.assign({}, state, reducer)
 
 export const ARGUMENT_ERROR = `As argument expected object of shape : {
-  namespace: 'non empty string',
+  namespace: 'string',
   types: 'object',
   initialState: 'object',
   reducers: 'object',

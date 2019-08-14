@@ -5,9 +5,13 @@ import {
 } from './utils'
 
 const createTypes = (namespace, types = []) => {
+  if (Array.isArray(namespace)) {
+    types = namespace
+    namespace = ''
+  }
+
   if (
     typeof namespace !== 'string' ||
-    namespace.length === 0 ||
     !Array.isArray(types) ||
     types.length === 0
   )
@@ -23,7 +27,7 @@ const createTypes = (namespace, types = []) => {
 const createError = message => createCapturedError(message, createTypes)
 
 export const ARGUMENT_ERROR =
-  'Expected first argument (namespace) to be a non empty string ' +
-  'and second argument (types) to be a non empty array.'
+  'Expected first argument to be a string (for namespaced actions) or non empty array (types)' +
+  'or/and second argument (types) to be a non empty array.'
 
 export default createTypes
